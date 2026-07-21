@@ -1,2 +1,13 @@
 # cache and other artifacts produced by Lean's Lake build tool
 .lake/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Generated research outputs
+data/*.csv
+figures/*.png
+figures/*.pdf
