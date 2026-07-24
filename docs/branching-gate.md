@@ -108,6 +108,46 @@ Case II/III として掲げた完全 singular capacity theory の中心的難所
   および log 補正の有無は未検証。
 - non-splittable gate（Case III：不安定方向と kernel が分離不能）への拡張。
 
+## 4.5 谷数 k 依存性
+
+`python/branching_valley_number.py`。degree-k homogeneous・k 回対称の gate 族
+
+```
+F_k(x,y) = r^{2k}/(2k) - Re[(x+iy)^k] = r^{2k}/(2k) - r^k cos(kθ),
+```
+
+k 個の井戸（θ_j = 2π j/k, r0 = k^{1/k}, 深さ -k/2）、共通 gate は原点、`H = 0`。
+`k = 2` は普通の Morse 鞍点（split 公式が使える境界）、`k ≥ 3` が branching gate。
+隣接する 2 井戸間の cap(A,B) を `k = 2..6` で測定。
+
+| k | p_global | slope(low T) | cap/T @ T=0.10 | spectator well の committor |
+|---|---|---|---|---|
+| 2 | 0.914 | 0.940 | 0.951 | —（Morse） |
+| 3 | 0.950 | 0.966 | 0.841 | {0.500} |
+| 4 | 0.965 | 0.976 | 0.812 | {0.416, 0.584} |
+| 5 | 0.973 | 0.981 | 0.800 | {0.384, 0.500, 0.616} |
+| 6 | 0.977 | 0.980 | 0.795 | {0.388, 0.490, 0.544, 0.633} |
+
+**発見。**
+
+1. **power は k 非依存**：局所 slope はすべて 1 へ収束（0.94 → 0.98、k が大きいほど
+   速い）。scaling 予測 `1 + (d-2)/k = 1`（d=2）を全 k で確認。
+2. **capacity 定数は k とともに単調減少**：cap/T @ T=0.10 は 0.951 → 0.795
+   （extrapolation-free、curves は panel A で非交差）。谷が増えるほど隣接対の
+   直接 conductance は小さくなる。
+3. **k=2 は Morse/split 境界**：cap/T → ~1（split 公式の leading `cap = T`）。
+   branching solver が split 理論に接続することの確認。
+4. **spectator committor の分岐構造**：傍観する k-2 個の井戸は k 回対称に従う特定の
+   分数値を取る。反射対称 `h → 1-h` により相補ペアは和が 1
+   （例 k=4: 0.416+0.584=1.000）、対称軸上の井戸はちょうど 1/2（k=3, k=5）。
+   committor が 2 次元 harmonic であることの指紋。
+
+**注意（正直な区分）。** 絶対正規化は committor solver の ~6% 系統誤差（Morse 検証）を
+含む。また cap/T の有限 T 補正指数は k 依存（k=2 は `O(T)`、k=3 は `T^{1/3}`）で
+`T→0` 外挿はモデル依存。よって k 間比較は同一 T・同一 solver の cap/T（外挿なし）で
+行い、絶対 `J_k` の精密値は主張しない。robust なのは「p_k=1」「k で単調減少」
+「spectator 分岐構造」の 3 点。
+
 ## 5. 証拠の区分
 
 - **厳密/既知**：monkey saddle の臨界構造、`H = 0`、`h_C = 1/2` の対称性論法、
