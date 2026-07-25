@@ -51,6 +51,12 @@ def solve_committor(F, L, n, T, wells_A, wells_B, well_radius):
     Fv = F(X, Y)
     a = np.exp(-Fv / T)
 
+    # "Dead" nodes: e^{-F/T} underflows to (essentially) zero, so they carry no
+    # measure and no conductance. Dropping them from the solve avoids singular
+    # rows from disconnected far-field corners at low T; it does not change the
+    # capacity (edges there have weight ~0).
+    dead = a < 1e-250
+
     fixed = np.full((n, n), np.nan)
     r2 = well_radius ** 2
     for (cx, cy) in wells_A:
@@ -60,7 +66,7 @@ def solve_committor(F, L, n, T, wells_A, wells_B, well_radius):
 
     is_fixed = ~np.isnan(fixed)
     idx = -np.ones((n, n), dtype=int)
-    unknown = np.argwhere(~is_fixed)
+    unknown = np.argwhere(~is_fixed & ~dead)
     for k, (i, j) in enumerate(unknown):
         idx[i, j] = k
     n_unk = len(unknown)
@@ -75,8 +81,8 @@ def solve_committor(F, L, n, T, wells_A, wells_B, well_radius):
         diag = 0.0
         for (di, dj) in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             ii, jj = i + di, j + dj
-            if not (0 <= ii < n and 0 <= jj < n):
-                continue  # no-flux Neumann outer boundary
+            if not (0 <= ii < n and 0 <= jj < n) or dead[ii, jj]:
+                continue  # no-flux at the outer boundary or a dead neighbour
             ae = edge_a(i, j, ii, jj)
             diag -= ae
             if is_fixed[ii, jj]:
@@ -95,14 +101,16 @@ def solve_committor(F, L, n, T, wells_A, wells_B, well_radius):
     H = fixed.copy()
     for k, (i, j) in enumerate(unknown):
         H[i, j] = sol[k]
+    H[dead] = 0.0  # arbitrary; excluded from the capacity sum below
 
-    # Capacity = T * sum over edges of a_edge (h_i - h_j)^2.
+    # Capacity = T * sum over edges of a_edge (h_i - h_j)^2, alive edges only.
+    alive = ~dead
     cap = 0.0
     dh_x = H[1:, :] - H[:-1, :]
-    a_x = 0.5 * (a[1:, :] + a[:-1, :])
+    a_x = 0.5 * (a[1:, :] + a[:-1, :]) * (alive[1:, :] & alive[:-1, :])
     cap += np.sum(a_x * dh_x ** 2)
     dh_y = H[:, 1:] - H[:, :-1]
-    a_y = 0.5 * (a[:, 1:] + a[:, :-1])
+    a_y = 0.5 * (a[:, 1:] + a[:, :-1]) * (alive[:, 1:] & alive[:, :-1])
     cap += np.sum(a_y * dh_y ** 2)
     cap *= T
 
