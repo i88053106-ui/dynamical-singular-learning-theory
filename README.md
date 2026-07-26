@@ -97,6 +97,7 @@ docs/        理論と各撃の導出
   split-gate-classification.md  第二撃：横断 Newton pole data による分類
   branching-gate.md             第三撃：monkey saddle・谷数 k 依存
   branching-gate-Jk.md          第三撃：定数 J_k の circulant ネットワーク還元
+  branching-gate-bs.md          第三撃：b_s の分数次数ベッセルモード解
   open-questions.md / lean-design*.md
 julia/       第一撃の横断積分（Julia）
   transverse_integral.jl            1 次元 Bessel 表示
