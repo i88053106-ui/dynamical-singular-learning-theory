@@ -101,10 +101,11 @@ junction 結合 `γ_s`（＝辺コンダクタンス `b_s`）はこの線形問�
   node 電位。`J_2 = 1`（厳密）。
 - **構造（解析）**：共形写像 `W = w^k` が重みを `e^{Re W}` に線形化、`Δg = g/4`
   （K_0 Green 関数）。junction は branched cover 上のシート間応答。
-- **残る唯一の未解決点**：junction 辺コンダクタンス `b_s(k)`（＝`γ_s`）の germ
-  `Re[w^k]` からの閉形式評価。これが求まれば `J_k` は完全に閉じる
-  （`J_4 = 4b(1+r)/(3+r)` 等に代入）。`b_s` は §2 の modified Helmholtz シート間
-  応答として原理的に定義される。
+- **junction 辺コンダクタンス `b_s(k)`（＝`γ_s`）**：§2 の modified Helmholtz を
+  変数分離すると committor は分数次数ベッセル `I_{|m|/k}(ρ^k/2T)` のモード和で厳密表現
+  され（[`branching-gate-bs.md`](branching-gate-bs.md)、<1% で数値検証）、`b_s`＝channel
+  admittance は aliased order `|m/k+n|` の connection problem で定まる。`a_m(k)`, `J_k`
+  は k=3..6 で数値 closed-out 済み。残るのは admittance の初等的閉形式のみ。
 
 ## 5. 証拠の区分
 
