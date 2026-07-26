@@ -101,8 +101,10 @@ branching gate では、capacity が potential germ の RLCT/Newton data だけ�
 Case II/III として掲げた完全 singular capacity theory の中心的難所である。
 
 **残る課題。**
-- monkey saddle（degree-3）は `p = 1`（数値確定, §3.5）。定数 `J ≈ 0.95` の
-  scale-invariant committor 積分による解析的評価は未了。
+- monkey saddle（degree-3）は `p = 1`（数値確定, §3.5）。定数 `J_k` は circulant
+  k端子ネットワークの隣接 conductance へ厳密還元される（[`branching-gate-Jk.md`](branching-gate-Jk.md)、
+  k=4 パラメータフリー test を 7–8 桁で検証）。残るのは junction 辺コンダクタンス
+  `b_s(k)` の germ からの閉形式評価のみ。
 - k 本の谷（`Re[(s+iv)^k]`, degree-k homogeneous）への一般化。次元 2 での scaling
   予測は `cap ~ T^{1+(2-2)/k} = T^1`（k 非依存の power）だが、定数 `J_k` の k 依存性、
   および log 補正の有無は未検証。
