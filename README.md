@@ -99,6 +99,7 @@ docs/        理論と各撃の導出
   branching-gate-Jk.md          第三撃：定数 J_k の circulant ネットワーク還元
   branching-gate-bs.md          第三撃：b_s の分数次数ベッセルモード解
   branching-gate-largek.md      第三撃：admittance の k→∞ 漸近 a_m ~ 2πm/k
+  branching-gate-slope.md       第三撃：a_m = 2sin(πm/k), 傾き Λ'(0⁺)=1 の証明
   open-questions.md / lean-design*.md
 julia/       第一撃の横断積分（Julia）
   transverse_integral.jl            1 次元 Bessel 表示
