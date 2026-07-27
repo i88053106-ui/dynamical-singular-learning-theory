@@ -9,6 +9,10 @@ branching gate の scale-invariant channel admittance `a_m = λ_m/T`（`branchin
 └─────────────────────────────────────────────┘
 ```
 
+**精密化（[`branching-gate-slope.md`](branching-gate-slope.md)）**：閉形式
+`a_m = 2 sin(π m/k)`、分散 `Λ(q) = 2 sin(q/2)`、傾き `Λ'(0⁺) = 1`（単位円板の
+Steklov 固有値 |m| から導出、全 q で数値 collapse を確認）。以下は leading の議論。
+
 ## 1. 円筒極限（cylinder limit）
 
 gate `F = -ρ^k cos(kφ)`。井戸は `r0 = k^{1/k} → 1`、構造は `k → ∞` で単位円へ集中。
