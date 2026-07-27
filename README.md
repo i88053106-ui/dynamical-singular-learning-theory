@@ -98,6 +98,7 @@ docs/        理論と各撃の導出
   branching-gate.md             第三撃：monkey saddle・谷数 k 依存
   branching-gate-Jk.md          第三撃：定数 J_k の circulant ネットワーク還元
   branching-gate-bs.md          第三撃：b_s の分数次数ベッセルモード解
+  branching-gate-largek.md      第三撃：admittance の k→∞ 漸近 a_m ~ 2πm/k
   open-questions.md / lean-design*.md
 julia/       第一撃の横断積分（Julia）
   transverse_integral.jl            1 次元 Bessel 表示
