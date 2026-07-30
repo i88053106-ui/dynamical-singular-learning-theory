@@ -101,6 +101,7 @@ docs/        理論と各撃の導出
   branching-gate-largek.md      第三撃：admittance の k→∞ 漸近 a_m ~ 2πm/k
   branching-gate-slope.md       第三撃：a_m = 2sin(πm/k), 傾き Λ'(0⁺)=1 の証明
   branching-gate-error.md       第三撃：理想化の誤差評価（T→0 厳密, 有限T は O(T/k²)）
+  nonsplittable-gate.md         Case III：capacity が係数依存の PDE-algebraic invariant
   open-questions.md / lean-design*.md
 julia/       第一撃の横断積分（Julia）
   transverse_integral.jl            1 次元 Bessel 表示
