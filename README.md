@@ -106,6 +106,7 @@ docs/        理論と各撃の導出
   nonsplittable-classification.md  Case III：一般 germ の J 分類（分離骨格＋Gamma結合則）
   branching-nonsplittable.md    多価×非分離：admittance が係数依存（調和点でのみ 2sin）
   branching-nonsplittable-general.md  非調和多価：単変数 a_m(t)・調和点摂動・一般 k
+  branching-nonsplittable-second-order.md  非調和多価：2次係数 a_m''(0)（2D resolvent）
   open-questions.md / lean-design*.md
 julia/       第一撃の横断積分（Julia）
   transverse_integral.jl            1 次元 Bessel 表示
