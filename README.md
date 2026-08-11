@@ -18,15 +18,23 @@ singular transition capacity を分類する幾何学的不変量を構成でき
 
 ---
 
-## 現在の到達点：三つの標的
+## 現在の到達点：三分類の確定構造
 
-| 標的 | 内容 | 状態 | 主な文書 |
+Case I / II / III の到達点は一つの階層に収まる。**Case I** は横断 Newton pole data で
+capacity が決まる（初等）。**Case II** は branching network の admittance が調和性ゆえ普遍
+`a_m=2 sin(πm/k)`（初等）。**Case III** は network は残るが admittance・capacity が係数依存の
+PDE-algebraic 量で、普遍性は調和点でのみ、代数骨格は初等・full 値は 2D resolvent（非初等）。
+総合は [`docs/theory.md`](docs/theory.md) §10′。
+
+| 分類 | 内容 | 状態 | 主な文書 |
 |---|---|---|---|
-| **第一撃** | Newton-degenerate transverse gate | ✅ 解析導出＋数値検証（Julia/Python/Langevin） | [`docs/capacity-derivation.md`](docs/capacity-derivation.md) |
-| **第二撃** | split gate の一般分類 `(κ,r)=(λ⊥+½, m⊥)` | ✅ 6 germ で検証 | [`docs/split-gate-classification.md`](docs/split-gate-classification.md) |
-| **第三撃** | branching gate（monkey saddle） | ✅ split 破綻を実証・`p=1` 確定・谷数 k 依存を解明 | [`docs/branching-gate.md`](docs/branching-gate.md) |
+| **Case I / 第一撃** | Newton-degenerate transverse gate | ✅ 解析導出＋数値検証（Julia/Python/Langevin） | [`docs/capacity-derivation.md`](docs/capacity-derivation.md) |
+| **Case I / 第二撃** | split gate の一般分類 `(κ,r)=(λ⊥+½, m⊥)` | ✅ 6 germ で検証 | [`docs/split-gate-classification.md`](docs/split-gate-classification.md) |
+| **Case II / 第三撃** | branching gate（普遍 `a_m=2sin(πm/k)`） | ✅ `p=1`・谷数 k 依存・Steklov 傾き・`J_∞=π/4`・有限T補正 | [`docs/branching-gate.md`](docs/branching-gate.md) |
+| **Case III** | non-splittable gate（係数依存 `J`） | ✅ 分離骨格＋Gamma 結合則・full は 2D resolvent | [`docs/nonsplittable-classification.md`](docs/nonsplittable-classification.md) |
+| **多価 × 非分離** | 単変数 `a_m(t)`・摂動展開・収束半径 | ✅ 0/1/2 次（2sin・envelope・resolvent）・`R=1` | [`docs/branching-nonsplittable-radius.md`](docs/branching-nonsplittable-radius.md) |
 
-理論全体の設計は [`docs/theory.md`](docs/theory.md)。
+理論全体の設計と到達点の総合は [`docs/theory.md`](docs/theory.md)（§10′ に確定構造）。
 
 ---
 
