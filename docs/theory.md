@@ -1071,6 +1071,155 @@ unstable direction と singular kernel geometry が局所的に分離できな�
 
 ---
 
+# 10′. 三分類の到達点：確定した capacity・admittance 構造
+
+§10 の三分類に対し、明示モデルの解析と数値検証で確定した構造を総合する。
+到達点は一つの階層に収まる。
+
+\[
+\boxed{
+\begin{aligned}
+&\textbf{Case I : capacity は横断 Newton pole data で決まる（初等的）.}\\
+&\textbf{Case II : branching network の admittance は調和性ゆえ普遍 } a_m=2\sin(\pi m/k)\ \textbf{（初等的）.}\\
+&\textbf{Case III: network は残るが admittance・capacity は係数依存の PDE-algebraic 量.}\\
+&\qquad\textbf{普遍性は調和点でのみ. 代数骨格は初等的, full 値は 2D resolvent（非初等）.}
+\end{aligned}
+}
+\]
+
+各 case の committor 構造と、capacity/admittance を決める幾何、その初等性：
+
+| case | committor | capacity/admittance を決めるもの | 初等性 |
+|---|---|---|---|
+| I split | fiberwise 1 次元 | 横断 Newton pole data \((\lambda_\perp,m_\perp)\) | 初等（Newton/RLCT）|
+| II branching | 2 次元 harmonic | Steklov 固有値 \(|m|\) → \(a_m=2\sin(\pi m/k)\) | 初等（普遍・係数非依存）|
+| III non-splittable | 2 次元 非分離 | 分離骨格（Gamma）＋ 2D resolvent | 骨格 初等 / full 非初等 |
+| 多価 × 非分離 | 2 次元 harmonic 網＋非調和 | 調和点で \(2\sin\)、周囲は resolvent 摂動 | 0/1 次 初等 / 2 次〜 非初等 |
+
+---
+
+## Case I（split gate）：横断 Newton pole data による分類 — 確定
+
+第一撃 model \(F=(x^2-1)^2/4+x^2(y^2+z^2)+y^6+y^2z^2+z^6\)、gate \(H=1/4\)、横断 germ
+\(K=y^6+y^2z^2+z^6\)。exact split normal form \(F-1/4=-X^2/2+K(y,z)\)。
+
+- 横断積分 \(I(T)=(\sqrt\pi/3)\sqrt T\,[\log(1/T)+\gamma+6\log2]\)（厳密 Bessel 表示
+  \(I=(4/3)\sqrt T\int e^{-x^2}K_0(2\sqrt T x^3)dx\) と独立 2D が相対差 \(10^{-10}\) で一致）。
+- capacity \(\operatorname{cap}_T\sim(1/3\sqrt2)\,T[\log(1/T)+\gamma+6\log2]\,e^{-1/4T}\),
+  exit \(\mathbb E\tau\sim 3\sqrt2\,\pi^{3/2}\,\sqrt T/\log(1/T)\,e^{1/4T}\)（Eyring–Kramers を機械精度で再現）。
+- Langevin 7 温度で負 log prefactor 署名を確認（\(C_{\rm eff}=2.055\pm0.025\)）。
+
+第二撃（一般 split gate）：横断 germ の Laplace pole data から
+
+\[
+\boxed{(\kappa,r)=(\lambda_\perp+\tfrac12,\ m_\perp)},\qquad
+\lambda_\perp=1/d\ (\text{Newton 距離}),\quad m_\perp\in\{1,2\}\ (\text{辺 or 頂点}).
+\]
+
+6 germ で検証。決定的対比：\(y^4+y^2z^2+z^4\)（中央項が辺上 → \(m=1\), log なし）vs
+\(y^6+y^2z^2+z^6\)（頂点 → \(m=2\), log あり）。log multiplicity は Hessian でなく
+Newton 頂点条件が支配（**予想 B 確定**）。文書：`capacity-derivation.md`,
+`split-gate-classification.md`。
+
+---
+
+## Case II（branching gate）：普遍 Steklov admittance — 確定
+
+monkey saddle \(F=r^6/6-(x^3-3xy^2)\) および \(\mathrm{Re}(w^k)\) 族。split 分解は原理的に
+不適用（不安定曲率 \(\mu=0\)）。
+
+- branching 署名 \(h_C=1/2\)（committor が 2D harmonic の直接証拠）、capacity 指数 \(p=1\)
+  （log なし、degree-3 homogeneous scaling）、谷数 k で power は不変・定数は単調減少。
+- circulant k 端子ネットワーク：\(R_{0d}=(1/k)\sum_m 4\sin^2(\pi md/k)/a_m\)。
+- **普遍 admittance**（単位円 Steklov 固有値 \(|m|\)、conformal \(W=w^k\) と分数次数ベッセル
+  \(I_{|m|/k}\) 由来）：
+
+\[
+\boxed{a_m=2\sin(\pi m/k)},\qquad \Lambda(q)=2\sin(q/2),\ \Lambda'(0^+)=1,\qquad
+J_k=\tfrac{k}{2}\tan\tfrac{\pi}{2k}\ \xrightarrow{k\to\infty}\ \tfrac\pi4.
+\]
+
+- 有限 T 補正 \(a_m(k,T)=2\sin(\pi m/k)(1-c_m(k)T+O(T^2))\)、\(c_m\sim c_m/k^2\)、\(T\to0\) で厳密。
+
+これらは germ が**調和**（\(\mathrm{Re}\,w^k\)）であることに由来し、**係数非依存**。文書：
+`branching-gate.md`, `-Jk.md`, `-bs.md`, `-largek.md`, `-slope.md`, `-error.md`。
+
+---
+
+## Case III（non-splittable gate）：係数依存 PDE-algebraic capacity — 確定
+
+同次 2-valley germ \(F=-U(x)+V(y)+W(x,y)\)、\(J=\inf_h\int|\nabla h|^2 e^{-F}\)
+（scale-invariant, \(\operatorname{cap}=J\cdot T\)）。
+
+- 分離バックボーン（\(W=0\)、committor 1 次元）：\(J_0=Z_V/Z_U=\int e^{-V}/\int e^{-U}\)、
+  \(U=V=(\cdot)^d\) で \(J_0=1\)。
+- 任意結合の1次応答（envelope 定理 + Gamma モーメント）：
+
+\[
+\boxed{J'(0)/J_0=-\sum_{pq}c_{pq}\langle x^p\rangle_d\langle y^q\rangle_d},\qquad
+\langle x^p\rangle_d=\frac{\Gamma((p+1)/d)}{\Gamma(1/d)}\ (p\ \text{偶}),\ 0\ (p\ \text{奇}).
+\]
+
+パリティ選択則（奇結合は1次で無効）。degree 4,6,8・複数結合で検証。pure germ
+\(-x^4+a x^2y^2+y^4\)：\(J(0)=1\), \(J'(0)=-2\pi^2/\Gamma(1/4)^4\approx-0.1142\)。
+
+- **full \(J\) は2次以降 2D resolvent 依存（非初等）**。よって Case III の \(J\) は
+  「代数的スケルトン（初等的 Gamma）＋非初等的 PDE 部分」（**予想 C の non-splittable 部分を
+  定量化**）。Newton polygon \(\{(4,0),(2,2),(0,4)\}\) 一定でも \(J(a)\) は係数で変わる
+  （Case I との決定的対比）。文書：`nonsplittable-gate.md`, `-Ja.md`, `-classification.md`。
+
+---
+
+## 多価 × 非分離：Case II と Case III の合流 — 確定
+
+族 \(P_a=-x^4+ax^2y^2-y^4\)（\(a>2\) で 4 谷、\(\Delta P_a=(2a-12)r^2\) より調和は \(a=6\) の
+\(-\mathrm{Re}\,w^4\) のみ）。再パラメータ \(P_{k,t}=-\mathrm{Re}(w^k)+t\,(x^2+y^2)^{k/2}\)
+（k 偶、\(t=0\) 調和）。等方項 \(t\,r^k\) は谷を動かさないので circulant k 端子ネットは全 t で不変。
+
+- **network は保たれ、admittance は係数依存**：普遍 \(2\sin(\pi m/k)\) は調和点 \(t=0\) のみ。
+  スケール不変性で \(a_m\) は**単一変数** \(t\) の関数。k=4 で \(a=(6+2t)/(1-t)\)。
+- **調和点まわりの摂動展開**（\(S_m=\sum_j\cos^2(2\pi mj/k)\)、\(h\)=調和 committor、\(L(t)\)=重み
+  付きグラフ Laplacian）：
+
+\[
+\boxed{
+\begin{aligned}
+&\text{0 次}: a_m(0)=2\sin(\pi m/k) &&(\text{厳密, Steklov}),\\
+&\text{1 次}: a_m'(0)=-\tfrac1{S_m}\!\sum_{\rm edges}\!\tfrac12(w_p r_p^k+w_q r_q^k)(\Delta h)^2 &&(\text{envelope, 明示積分}),\\
+&\text{2 次}: a_m''(0)=[h]^\top L''[h]+2[\dot h]^\top L'[h],\ \ L_{II}\dot h_I=-(L'[h])_I &&(\text{2D resolvent, 非初等}).
+\end{aligned}
+}
+\]
+
+\(a_m''>0\)（凸）。全て resolvent＝中心差分で検証（k=4,6）。k=4 の連鎖律：
+\(da_m/da|_6=\tfrac18 a_m'(0)\)（\(=-0.137,-0.247\)）、\(d^2a_m/da^2|_6=a_m''(0)/64-a_m'(0)/32\)。
+
+- **収束半径**：\(a_m(t)\) は \(t\in(-1,1)\)（\(a\in(2,\infty)\)）で解析的、両端で degree-4
+  同次のまま退化——
+
+\[
+t\to-1:\ P\to-(x^2-y^2)^2\ (\text{井戸合体},\ a_m\sim(a-2)^{-1/2});\quad
+t\to+1:\ P\to 8x^2y^2\ (\text{Newton 退化},\ a_m\sim a^{-\gamma_+},\ \gamma_+\approx0.15).
+\]
+
+いずれも非整数冪の分岐点なので \(\boxed{R=1}\)（実用は \(|t|\lesssim0.3\)）。文書：
+`branching-nonsplittable.md`, `-general.md`, `-second-order.md`, `-radius.md`。
+
+\[
+\boxed{
+\begin{aligned}
+&\textbf{多価 non-splittable gate の大域像：}\\
+&\text{・network は circulant（Case II 構造）を全域 }|t|<1\text{ で保つ,}\\
+&\text{・admittance }a_m(t)\text{ は調和点 }t=0\text{ で普遍 }2\sin(\pi m/k)\text{、周囲で係数依存の解析関数（Case III）,}\\
+&\text{・展開は 0 次(Steklov 厳密)・1 次(envelope)・2 次(2D resolvent) で曲率まで確定, 収束半径 }R=1,\\
+&\text{・両端 }t=\pm1\text{ は Newton 退化（capacity の分岐点）.}\\
+&\textbf{Case II（普遍）と Case III（係数依存）は「network 共通・普遍性は調和性由来」で統一される.}
+\end{aligned}
+}
+\]
+
+---
+
 # 11. 最小次元について
 
 separable analytic non-branching one-gate class に限定する。
@@ -1552,6 +1701,9 @@ C'
 e^{1/(4T)}.
 \]
 
+**状態：第一撃で確定**（§10′ Case I）。\(\operatorname{cap}_T\sim(1/3\sqrt2)T[\log(1/T)+\gamma+6\log2]e^{-1/4T}\)、
+Langevin 7 温度で負 log prefactor 署名 \(C_{\rm eff}=2.055\pm0.025\)。
+
 ---
 
 ## 予想 B
@@ -1576,6 +1728,9 @@ K(v)
 
 が capacity prefactor の power/log data を決める。
 
+**状態：第二撃で確定**（§10′ Case I）。\((\kappa,r)=(\lambda_\perp+\tfrac12,m_\perp)\)、
+\(\lambda_\perp=1/d\)、\(m_\perp\in\{1,2\}\)（辺 or 頂点）、6 germ で検証。
+
 ---
 
 ## 予想 C
@@ -1591,6 +1746,12 @@ unstable mode を singular transverse geometry から分離できない場合、
 ではcapacity asymptoticsを分類できない。
 
 committor germ、local harmonic splitting、gate topology の追加情報が必要になる。
+
+**状態：Case II/III で定量化**（§10′）。branching（調和）は普遍 admittance \(a_m=2\sin(\pi m/k)\)
+（Steklov \(|m|\)、係数非依存）；non-splittable は係数依存の PDE-algebraic 量で、分離骨格
+（Gamma）＋ 2D resolvent。多価×非分離では両者が「network 共通・普遍性は調和点のみ」で合流し、
+調和点まわりの摂動展開（0/1/2 次）と収束半径 \(R=1\) まで確定。潜在情報（committor geometry・
+gate topology）が本質的に必要という予想 C の主張は、Case III で具体化された。
 
 ---
 
